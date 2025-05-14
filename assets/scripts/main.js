@@ -1,10 +1,13 @@
 // main.js
 
+// const { createElement } = require("react");
+
 // Run the init() function when the page has loaded
 window.addEventListener("DOMContentLoaded", init);
 
 // Starts the program, all function calls trace back here
 function init() {
+	console.log('⚡️ init fired');
 	// Get the recipes from localStorage
 	let recipes = getRecipesFromStorage();
 	// Add each recipe to the <main> element
@@ -24,6 +27,7 @@ function getRecipesFromStorage() {
 	// A9. TODO - Complete the functionality as described in this function
 	//           header. It is possible in only a single line, but should
 	//           be no more than a few lines.
+	return JSON.parse(localStorage.getItem('recipes') || '[]');
 }
 
 /**
@@ -35,10 +39,16 @@ function getRecipesFromStorage() {
  */
 function addRecipesToDocument(recipes) {
 	// A10. TODO - Get a reference to the <main> element
+	let main = document.querySelector('main');
 	// A11. TODO - Loop through each of the recipes in the passed in array,
 	//            create a <recipe-card> element for each one, and populate
 	//            each <recipe-card> with that recipe data using element.data = ...
 	//            Append each element to <main>
+	recipes.forEach(recipe => {
+		const card = document.createElement('recipe-card');
+		card.data = recipe;
+		main.append(card);
+	})
 }
 
 /**
